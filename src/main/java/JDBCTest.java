@@ -9,17 +9,22 @@ public class JDBCTest {
         try {
             Class.forName("com.mysql.jdbc.driver");
         } catch (ClassNotFoundException e) {
-            System.out.println( ".......");
+            System.out.println(".......");
         }
         try {
             con = DriverManager.getConnection(URL, USER, PASS);
             Statement statement = con.createStatement();
+            statement.execute("update employee_payroll set salary=160000 where name='Mark'");
             ResultSet resultSet = statement.executeQuery("select * from employee_payroll");
-            while(resultSet.next()){
-                System.out.println(resultSet.getInt( 1)+" "+resultSet.getInt(2)+" "+resultSet.getString(3));
+            while (resultSet.next()) {
+                System.out.println(resultSet.getInt("id") + " " +
+                        resultSet.getString(2) + " " +
+                        resultSet.getString(3) + " " +
+                        resultSet.getDouble(4) + " " +
+                        resultSet.getDate(5));
             }
-        }catch (Exception e){
-            System.out.println( " __________");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
